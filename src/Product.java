@@ -1,20 +1,16 @@
 public class Product {
     private String name;
-    private Double price;
+    private double price;
     private int quantity;
 
-
-    public Product(String name, Double price, int quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
+    public Product(String name, double price, int quantity) {
+        setName(name);
+        setPrice(price);
+        setQuantity(quantity);
     }
 
-   
-    public Double calcularEstoque() {
-        Double total = this.price * this.quantity;
-        System.out.printf("Total em estoque : %.2f%n", total);
-        return total; 
+    public double calculateStockValue() {
+        return price * quantity;
     }
 
     public String getName() {
@@ -22,14 +18,20 @@ public class Product {
     }
 
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be empty.");
+        }
         this.name = name;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative.");
+        }
         this.price = price;
     }
 
@@ -38,6 +40,9 @@ public class Product {
     }
 
     public void setQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative.");
+        }
         this.quantity = quantity;
     }
 }
